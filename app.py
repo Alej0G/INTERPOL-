@@ -4,11 +4,11 @@ import time
 # ============================
 # Configuración
 # ============================
-RESPUESTA_CORRECTA = "seguridad"
-MENSAJE_EXITO = "🔓 Información recuperada: Los Yakuza se mueven a Nagasaki."
+RESPUESTA_CORRECTA = "colombia"
+MENSAJE_EXITO = "🔓 El Container con la carga más importante va llegando a Buenaventura, y el receptor es el cartel del Norte del Valle del Cauca."
 MENSAJE_FRACASO = "❌ Se perdió la información."
-TEXTO_CIFRADO = "5314"  # ejemplo (Murciélago)
-TIEMPO_TOTAL = 120  # segundos
+TEXTO_CIFRADO = "39690b47"  # ejemplo (Murciélago)
+TIEMPO_TOTAL = 1200  # segundos
 
 # ============================
 # Estados
