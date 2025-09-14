@@ -9,6 +9,7 @@ MENSAJE_EXITO = "🔓 El Container con la carga más importante va llegando a Bu
 MENSAJE_FRACASO = "❌ Se perdió la información."
 TEXTO_CIFRADO = "39690b47"  # ejemplo (Murciélago)
 TIEMPO_TOTAL = 1200  # segundos
+INTENTOS_MAX = 3
 
 # ============================
 # Estados
@@ -19,6 +20,8 @@ if "activo" not in st.session_state:
     st.session_state.activo = False
 if "tiempo_inicio" not in st.session_state:
     st.session_state.tiempo_inicio = None
+if "intentos" not in st.session_state:
+    st.session_state.intentos = 0
 
 # ============================
 # Interfaz
@@ -42,14 +45,22 @@ with col1:
         st.session_state.tiempo_inicio = time.time()
         st.session_state.activo = True
         st.session_state.resultado = ""
+        st.session_state.intentos = 0  # reiniciar intentos al iniciar
 
 with col2:
     if st.button("✅ Verificar") and st.session_state.activo:
         if entrada.lower() == RESPUESTA_CORRECTA:
             st.session_state.resultado = MENSAJE_EXITO
+            st.session_state.activo = False
         else:
-            st.session_state.resultado = MENSAJE_FRACASO
-        st.session_state.activo = False
+            st.session_state.intentos += 1
+            if st.session_state.intentos >= INTENTOS_MAX:
+                st.session_state.resultado = MENSAJE_FRACASO + " (Se agotaron los intentos)"
+                st.session_state.activo = False
+            else:
+                st.warning(
+                    f"❌ Respuesta incorrecta. Intentos usados: {st.session_state.intentos}/{INTENTOS_MAX}"
+                )
 
 # ============================
 # Temporizador dinámico
@@ -57,14 +68,14 @@ with col2:
 if st.session_state.activo and st.session_state.tiempo_inicio:
     placeholder = st.empty()
     for i in range(TIEMPO_TOTAL, -1, -1):
-        if not st.session_state.activo:  # si ya verificaron
+        if not st.session_state.activo:  # si ya verificaron o acabaron intentos
             break
         placeholder.markdown(f"### ⏱️ Tiempo restante: **{i} s**")
         time.sleep(1)
     else:
         # Si llega a 0 sin verificar
         if st.session_state.resultado == "":
-            st.session_state.resultado = MENSAJE_FRACASO
+            st.session_state.resultado = MENSAJE_FRACASO + " (Se acabó el tiempo)"
             st.session_state.activo = False
     st.rerun()
 
@@ -72,7 +83,7 @@ if st.session_state.activo and st.session_state.tiempo_inicio:
 # Resultado final
 # ============================
 if st.session_state.resultado:
-    if "recuperada" in st.session_state.resultado:
+    if "🔓" in st.session_state.resultado:
         st.success(st.session_state.resultado)
     else:
         st.error(st.session_state.resultado)
