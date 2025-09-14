@@ -8,7 +8,7 @@ RESPUESTA_CORRECTA = "colombia"
 MENSAJE_EXITO = "🔓 El Container con la carga más importante va llegando a Buenaventura, y el receptor es el cartel del Norte del Valle del Cauca."
 MENSAJE_FRACASO = "❌ Se perdió la información."
 TEXTO_CIFRADO = "39690b47"  # ejemplo (Murciélago)
-TIEMPO_TOTAL = 1200  # segundos
+TIEMPO_TOTAL = 600  # segundos
 INTENTOS_MAX = 3
 
 # ============================
