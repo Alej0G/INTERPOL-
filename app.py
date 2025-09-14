@@ -8,7 +8,7 @@ RESPUESTA_CORRECTA = "seguridad"
 MENSAJE_EXITO = "🔓 Información recuperada: Los Yakuza se mueven a Nagasaki."
 MENSAJE_FRACASO = "❌ Se perdió la información."
 TEXTO_CIFRADO = "5314"  # ejemplo (Murciélago)
-TIEMPO_TOTAL = 30  # segundos
+TIEMPO_TOTAL = 120  # segundos
 
 # ============================
 # Estados
